@@ -113,7 +113,7 @@ export default function EditBoard({ closeDotsMenu, setChildPopup }) {
             color: theme.palette.text.primary,
             background: theme.palette.background.default,
             padding: "32px",
-            width: isSmallScreen ? "360px" : "500pc",
+            width: isSmallScreen ? "360px" : "500px",
           }}>
           <Stack>
             <Box>
