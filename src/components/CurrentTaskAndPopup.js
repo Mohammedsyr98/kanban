@@ -22,7 +22,7 @@ export default function CurrentTaskAndPopup({ BoardButton, task }) {
   const childPopup = useSelector((state) => state.childPopupMode.value);
 
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [currentTask, setCurrentTask] = useState(null);
   const [columnsName, setcolumnsName] = useState([]);
   const [selectedColumn, setSelectedColumn] = useState();
@@ -163,7 +163,7 @@ export default function CurrentTaskAndPopup({ BoardButton, task }) {
               background: theme.palette.background.default,
               padding: "32px",
               transform: childPopup ? "scale(0)" : "scale(1)",
-              width: "500px",
+              width: isSmallScreen ? "360px" : "500px",
               transition: "transform 0.2s 0s ease-in-out",
             }}>
             <Stack>
