@@ -26,20 +26,23 @@ export default function CurrentTaskAndPopup({ BoardButton, task }) {
   const [currentTask, setCurrentTask] = useState(null);
   const [columnsName, setcolumnsName] = useState([]);
   const [selectedColumn, setSelectedColumn] = useState();
-  const currentBoard = boards.find((board) => board.selectedBoard) || boards[0];
+
+  const currentBoard = useMemo(
+    () => boards.find((board) => board.selectedBoard) || boards[0],
+    [boards]
+  );
+
   const handleClick = (event, task) => {
     setAnchorEl(event.currentTarget);
-
     setCurrentTask(task);
-
+    setSelectedColumn(task.status);
     dispatch(changeNewTaskPopupMode());
   };
-  // const columnsInCurrentBoard = useMemo(() => {
-  //   const value = (
-  //     boards.find((ele) => ele.selectedBoard === true) || boards[0]
-  //   ).columns.map((ele) => ele.name);
-  //   setcolumnsName(value);
-  // }, [currentBoard, currentTask]);
+
+  useMemo(() => {
+    const value = currentBoard.columns.map((ele) => ele.name);
+    setcolumnsName(value);
+  }, [currentBoard]);
 
   const sendUpdatedSubTaskValue = (subtask) => {
     dispatch(
@@ -53,6 +56,7 @@ export default function CurrentTaskAndPopup({ BoardButton, task }) {
       ])
     );
   };
+
   const changeTaskStatus = (newStatus) => {
     setSelectedColumn(newStatus);
     dispatch(
@@ -68,12 +72,14 @@ export default function CurrentTaskAndPopup({ BoardButton, task }) {
     );
   };
 
-  const allTasks = useMemo(() => {
-    return currentBoard.columns.reduce(
-      (acc, column) => acc.concat(column.tasks),
-      []
-    );
-  }, [currentBoard]);
+  const allTasks = useMemo(
+    () =>
+      currentBoard.columns.reduce(
+        (acc, column) => acc.concat(column.tasks),
+        []
+      ),
+    [currentBoard]
+  );
 
   useEffect(() => {
     if (currentTask) {
@@ -82,9 +88,11 @@ export default function CurrentTaskAndPopup({ BoardButton, task }) {
       );
       if (updatedTask) {
         setCurrentTask(updatedTask);
+      } else {
+        console.error("Updated task not found");
       }
     }
-  }, [boards]);
+  }, [boards, currentTask]);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -116,7 +124,6 @@ export default function CurrentTaskAndPopup({ BoardButton, task }) {
             alignItems: "flex-start",
             justifyContent: "center",
             textAlign: "left",
-
             color: theme.palette.text.primary,
           }}>
           {task.title}
@@ -246,11 +253,9 @@ export default function CurrentTaskAndPopup({ BoardButton, task }) {
                 <Select
                   sx={{
                     width: "100%",
-
                     border: "1px solid rgba(130, 143, 163, 0.25)",
                     borderRadius: "7px",
                     padding: "5px 0px 5px 15px",
-
                     marginTop: "10px",
                     "& .MuiSelect-select": {
                       padding: "5px 0px 5px 0px",
