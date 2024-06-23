@@ -10,6 +10,7 @@ import { useTheme } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { changeNewTaskPopupMode } from "../features/popupSliceMode";
 import { updateSubTask, updateTaskStatus } from "../features/boardSlice";
+import { useMediaQuery } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import DotsMenu from "./DotsComponentMenuForEditTask";

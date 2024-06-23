@@ -10,10 +10,12 @@ import { changechildPopupMode } from "../features/childPopupSlice";
 import { editBoard } from "../features/boardSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 export default function EditBoard({ closeDotsMenu, setChildPopup }) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const childPopup = useSelector((state) => state.childPopupMode.value);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const boards = useSelector((state) => state.boardSlice);
   const currentBoard =
     boards.find((ele) => ele.selectedBoard === true) || boards[0];
@@ -111,7 +113,7 @@ export default function EditBoard({ closeDotsMenu, setChildPopup }) {
             color: theme.palette.text.primary,
             background: theme.palette.background.default,
             padding: "32px",
-            width: "500px",
+            width: isSmallScreen ? "360px" : "500pc",
           }}>
           <Stack>
             <Box>

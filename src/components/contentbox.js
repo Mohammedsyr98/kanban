@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 
 import { useParams } from "react-router-dom";
-
+import { useMediaQuery } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { selectedBoard as selected, newColumn } from "../features/boardSlice";
 import { useEffect } from "react";
@@ -25,7 +25,7 @@ export default function ContentBox() {
   );
 
   const theme = useTheme();
-
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.background.default,
     height: "85px",
@@ -111,7 +111,7 @@ export default function ContentBox() {
             <Item
               onClick={() => dispatch(newColumn(selectedBoard.name))}
               sx={{
-                height: "500px",
+                height: isSmallScreen ? "360px" : "500px",
                 cursor: "pointer",
                 marginTop: "40px",
                 color: theme.palette.text.third,

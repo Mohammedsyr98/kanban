@@ -9,6 +9,7 @@ import Select from "@mui/material/Select";
 import { useTheme } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { useMediaQuery } from "@mui/material";
 import { changechildPopupMode } from "../features/childPopupSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -29,7 +30,7 @@ export default function EditTaskPopup({
   const [subTasks, SetSubTasks] = useState(currentTask.subtasks);
 
   const boards = useSelector((state) => state.boardSlice);
-
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const columnsInCurrentBoard = (
     boards.find((ele) => ele.selectedBoard === true) || boards[0]
   ).columns;
@@ -127,7 +128,7 @@ export default function EditTaskPopup({
             color: theme.palette.text.primary,
             background: theme.palette.background.default,
             padding: "32px",
-            width: "500px",
+            width: isSmallScreen ? "360px" : "500px",
           }}>
           <Stack>
             <Box>

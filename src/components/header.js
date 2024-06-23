@@ -8,6 +8,8 @@ import { Typography, useTheme } from "@mui/material";
 
 import { Box } from "@mui/material";
 import DotsMenu from "./DotsComponentMenuForEditBoard";
+import MenuForMobile from "./MenuForMobileOnly";
+import { useMediaQuery } from "@mui/material";
 
 export default function Header({ hiddenSidebar }) {
   const darkModeState = useSelector((state) => state.darkModeState.value);
@@ -16,6 +18,7 @@ export default function Header({ hiddenSidebar }) {
   const currentBoard =
     boards.find((ele) => ele.selectedBoard === true) || boards[0];
   const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <>
@@ -58,6 +61,8 @@ export default function Header({ hiddenSidebar }) {
           variant="h1">
           {currentBoard ? currentBoard.name : "No Board Available"}
         </Typography>
+        {isSmallScreen ? <MenuForMobile /> : ""}
+
         <Box
           sx={{
             display: "flex",

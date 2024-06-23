@@ -8,11 +8,12 @@ import { useTheme } from "@emotion/react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeNewBoardPopupMode } from "../features/popupSliceMode";
+import { useMediaQuery } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 export default function BasicPopover({ BoardButton }) {
   const theme = useTheme();
   const dispatch = useDispatch();
-
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [anchorEl, setAnchorEl] = useState(null);
   const [columnsName, setcolumnsName] = useState([
     { name: "Todo", id: 0 },
@@ -117,7 +118,7 @@ export default function BasicPopover({ BoardButton }) {
             color: theme.palette.text.primary,
             background: theme.palette.background.default,
             padding: "32px",
-            width: "500px",
+            width: isSmallScreen ? "365px" : "500px",
           }}>
           <Stack>
             <Box>
