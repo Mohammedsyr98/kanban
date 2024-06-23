@@ -52,7 +52,7 @@ export default function MenuForMobile() {
     setMenuOpened(!menuOpened);
   };
   const closeMainPop = () => {
-    dispatch(changechildPopupMode());
+  
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
