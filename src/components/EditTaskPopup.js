@@ -128,7 +128,7 @@ export default function EditTaskPopup({
             color: theme.palette.text.primary,
             background: theme.palette.background.default,
             padding: "32px",
-            width: isSmallScreen ? "360px" : "500px",
+            width: isSmallScreen ? "350px" : "500px",
           }}>
           <Stack>
             <Box>
